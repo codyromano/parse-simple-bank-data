@@ -51,6 +51,15 @@ function getTotalSpendByDesc(records) {
   }, {});
 }
 
+function sortByValues(obj) {
+  let sortable = [];
+  for (const key in obj) {
+    const value = obj[key];
+    sortable.push({key, value});
+  }
+  return sortable.sort((a, b) => b.value - a.value);
+}
+
 const debits = filterByBookType(
   'debit',
   records
@@ -67,5 +76,7 @@ const recent = filterByDate(
 );
 
 console.log(
-  getTotalSpendByDesc(recent)
+  sortByValues(
+    getTotalSpendByDesc(recent)
+  )
 );
