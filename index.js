@@ -8,6 +8,10 @@ function getAmount(record) {
   return record.amounts.amount / 10000;
 }
 
+function getCategory(record) {
+  return record.categories[0].name;
+}
+
 function parseAmount(amount) {
   return parseFloat(
     amount.toPrecision(4)
@@ -39,17 +43,27 @@ function filterByBookType(type, records) {
   });
 }
 
-function getTotalSpendByDesc(records) {
+function groupSpendingByKey(keyFn, records) {
   return records.reduce((result, record) => {
-    const about = record.description;
-    result[about] = parseAmount(
-      (result[about] || 0) +
+    const key = keyFn(record);
+
+    result[key] = parseAmount(
+      (result[key] || 0) +
       getAmount(record)
     );
-
     return result;
   }, {});
 }
+
+const getTotalSpendByDesc = groupSpendingByKey.bind(
+  null,
+  record => record.description
+);
+
+const getTotalSpendByCategory = groupSpendingByKey.bind(
+  null,
+  record => getCategory(record)
+);
 
 function sortByValues(obj) {
   let sortable = [];
@@ -77,6 +91,6 @@ const recent = filterByDate(
 
 console.log(
   sortByValues(
-    getTotalSpendByDesc(recent)
+    getTotalSpendByCategory(recent)
   )
 );
