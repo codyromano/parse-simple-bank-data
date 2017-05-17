@@ -18,6 +18,13 @@ function parseAmount(amount) {
   );
 }
 
+function formatCash(number) {
+    const withCommas = number.toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    return '$' + withCommas;
+}
+
 function getTimestamp(record) {
   return new Date(
     record.times.when_recorded_local
@@ -40,6 +47,12 @@ function filterByBookType(type, records) {
   return records.filter(record => {
     const recordType = record.bookkeeping_type.toLowerCase();
     return recordType === type;
+  });
+}
+
+function filterByCategory(category, records) {
+  return records.filter(record => {
+    return getCategory(record) === category
   });
 }
 
@@ -89,8 +102,17 @@ const recent = filterByDate(
   debits
 );
 
+const values = sortByValues(
+  getTotalSpendByCategory(recent)
+).map(obj => {
+  const cash = formatCash(
+    Math.round(obj.value)
+  );
+  return `${cash}...${obj.key}`
+});
+
 console.log(
-  sortByValues(
-    getTotalSpendByCategory(recent)
-  )
+  values.join('\n')
 );
+
+
