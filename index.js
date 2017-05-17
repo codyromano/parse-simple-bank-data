@@ -1,3 +1,5 @@
+'use strict';
+
 const json = require('./transactions');
 const records = json.transactions;
 
@@ -54,15 +56,16 @@ const debits = filterByBookType(
   records
 );
 
+let lastMonth = new Date();
+lastMonth.setDate(lastMonth.getMonth() - 1);
+
+// Transactions in the last month
 const recent = filterByDate(
-  new Date('May 1, 2017'),
-  new Date('May 17, 2017'),
+  lastMonth,
+  new Date(),
   debits
 );
-
 
 console.log(
   getTotalSpendByDesc(recent)
 );
-
-//console.log(records[0]);
