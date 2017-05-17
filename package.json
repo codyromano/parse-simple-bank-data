@@ -1,0 +1,25 @@
+{
+  "name": "parse-simple-bank-data",
+  "version": "1.0.0",
+  "description": "Simple Bank (simple.com) customers can use these methods to parse and analyze their transaction history",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codyromano/parse-simple-bank-data.git"
+  },
+  "keywords": [
+    "simple",
+    "finance",
+    "bank",
+    "json"
+  ],
+  "author": "Cody Romano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codyromano/parse-simple-bank-data/issues"
+  },
+  "homepage": "https://github.com/codyromano/parse-simple-bank-data#readme"
+}
